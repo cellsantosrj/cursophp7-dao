@@ -8,31 +8,34 @@ class Sql extends PDO {
         $this->conn = new PDO("mysql:dbname=dbphp7;host=localhost", "root", "");
     }
 
-    private function setParams($declaracao, $parametros = array()) {
+    private function setDados($declaracao, $parametros = array()) {
 
-        foreach ($parametros as $key => $value) {
+        foreach ($parametros as $chave => $valor) {
 
-            $this->setParam($key, $value);
+            $this->setDado($chave, $valor);
         }
     }
 
-    private function setParam($declaracao, $key, $value) {
+    private function setDado($declaracao, $chave, $valor) {
 
-        $declaracao->bindParam($key, $value);
+        $declaracao->bindParam($chave, $valor);
     }
 
-    public function query($rawQuery, $params = array()) {
-
-        $stmt = $this->conn->prepare($rawQuery);
-        $this->setParams($stmt, $params);
+    public function query($linhaDados, $dados = array()) {
+        
+        $stmt = $this->conn->prepare($linhaDados);
+        
+        $this->setDados($stmt, $dados);
+        
         $stmt->execute();
-        return $stmt;
+        
+        return $stmt; 
     }
-
-    public function select($rawQuery, $params = array()): array {
-
-        $stmt = $this->query($rawQuery, $params);
-
+    
+    public function select($linhaDados, $parametros = array()):array{
+        
+        $stmt = $this->query($linhaDados, $parametros);
+        
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

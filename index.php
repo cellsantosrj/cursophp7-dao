@@ -23,9 +23,26 @@ echo json_encode($usuarios);
 
 //carregar usuario via login e senha
 
+//$usuario = new Usuario();
+//$usuario->login("Cel", "1219");
+//echo $usuario;
+
+//inserir dados no banco
+//$aluno = new Usuario("Bruna", "2224");
+//$aluno->insert();
+//echo $aluno;
+
+//atualizacao de cadastro do usuario
 $usuario = new Usuario();
-$usuario->login("Cel", "1219");
+$usuario->loadById(7);
+$usuario->update("João", "2015");
 echo $usuario;
+
+
+
+
+
+
 
 
 

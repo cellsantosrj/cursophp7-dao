@@ -32,7 +32,7 @@ class Sql extends PDO {
         return $stmt; 
     }
     
-    public function select($rawQuery, $params = array()):array{
+      public function select($rawQuery, $params = array()):array{
         
         $stmt = $this->query($rawQuery, $params);
         

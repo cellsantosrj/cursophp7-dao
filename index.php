@@ -33,10 +33,18 @@ echo json_encode($usuarios);
 //echo $aluno;
 
 //atualizacao de cadastro do usuario
+//$usuario = new Usuario();
+//$usuario->loadById(7);
+//$usuario->update("João", "2015");
+//echo $usuario;
+
+//Excluir o cadastro do usuario
 $usuario = new Usuario();
 $usuario->loadById(7);
-$usuario->update("João", "2015");
+$usuario->delete();
 echo $usuario;
+
+
 
 
 

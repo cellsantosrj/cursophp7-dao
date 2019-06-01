@@ -49,7 +49,7 @@ class Usuario {
 
         if (count($results) > 0) {
 
-           $this->setData($results[0]);
+            $this->setData($results[0]);
         }
     }
 
@@ -78,9 +78,8 @@ class Usuario {
         ));
 
         if (count($results) > 0) {
-            
-            $this->setData($results[0]);
 
+            $this->setData($results[0]);
         } else {
 
             throw new Exception("Erro Login ou Senha invalidos");
@@ -88,7 +87,7 @@ class Usuario {
     }
 
     public function setData($data) {
-        
+
         $this->setIdusuario($data['idusuario']);
         $this->setDeslogin($data['deslogin']);
         $this->setDessenha($data['dessenha']);
@@ -100,35 +99,45 @@ class Usuario {
         $sql = new Sql();
 
         $results = $sql->select("CALL sp_usuario_insert(:LOGIN, :PASS)", array(
-            
-            ':LOGIN'=>$this->getDeslogin(),
-            ':PASS'=>$this->getDessenha()
+            ':LOGIN' => $this->getDeslogin(),
+            ':PASS' => $this->getDessenha()
         ));
-        
-        if(count($results) > 0){
-            
+
+        if (count($results) > 0) {
+
             $this->setData($results[0]);
         }
     }
-    
-    public function update($login, $pass){
-        
+
+    public function update($login, $pass) {
+
         $this->setDeslogin($login);
         $this->setDessenha($pass);
-        
+
         $sql = new Sql();
-        
+
         $sql->query("UPDATE tb_usuarios SET deslogin = :LOGIN, dessenha = :PASS WHERE idusuario = :ID", array(
-           ':LOGIN'=>$this->getDeslogin(),
-            ':PASS'=>$this->getDessenha(), 
-            ':ID'=>$this->getIdusuario() 
+            ':LOGIN' => $this->getDeslogin(),
+            ':PASS' => $this->getDessenha(),
+            ':ID' => $this->getIdusuario()
         ));
-        
     }
 
+    public function delete() {
+        $sql = new Sql();
+
+        $sql->query("DELETE FROM tb_usuarios WHERE idusuario = :ID", array(
+            ':ID' => $this->getIdusuario()
+        ));
+
+        $this->setIdusuario(0);
+        $this->setDeslogin("");
+        $this->setDessenha("");
+        $this->setDtcadastro(new DateTime());
+    }
 
     public function __construct($login = "", $pass = "") {
-        
+
         $this->setDeslogin($login);
         $this->setDessenha($pass);
     }
